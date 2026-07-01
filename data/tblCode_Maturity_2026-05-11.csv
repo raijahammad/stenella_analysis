@@ -1,0 +1,18 @@
+ID,SexualMaturityCode,Description,EditUser,EditDate,RecordCreationDate
+1,1,Sexually immature per gonad weight,Susan.Chivers,2017-09-14,2017-09-14
+2,2,Sexually immature per histology,Susan.Chivers,2017-09-14,2017-09-14
+3,3,Sexually immature, Total Corpara=0,Susan.Chivers,2017-09-14,2017-09-14
+4,4,Sexually immature, immature uterus,Susan.Chivers,2017-09-14,2017-09-14
+5,5,Sexually mature per gonad weight,Susan.Chivers,2017-09-14,2017-09-14
+6,6,Sexually mature per histology,Susan.Chivers,2017-09-14,2017-09-14
+7,7,Sexually mature, Total Corpora >0,Susan.Chivers,2017-09-14,2017-09-14
+8,8,Sexually mature; corpora albicans (>=1) or corpus luteum observed, total corpora count not available,Susan.Chivers,2017-09-14,2017-09-14
+10,9,Sexually mature; no corpora info but pregnant or lactating,Susan.Chivers,2017-09-14,2017-09-14
+11,0,Sexual maturity cannot be determined,Susan.Chivers,2017-09-14,2017-09-14
+12,10,Sexually immature per total body length,Susan.Chivers,2017-09-14,2017-09-14
+13,11,Sexually mature per total body length,Susan.Chivers,2017-09-14,2017-09-14
+14,12,Sexually maturing per histology,Susan.Chivers,2017-10-24,2017-10-02
+15,13,Sexually mature per age,NA,NA,2021-03-02
+16,14,Sexually immature per age,NA,NA,2021-03-02
+17,15,Sexually mature per hormones,NA,NA,2021-03-19
+18,16,Sexually immature per hormones,NA,NA,2021-03-19
