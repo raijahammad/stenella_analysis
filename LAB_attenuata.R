@@ -32,9 +32,23 @@ birth_model_att <- glm(
   family = binomial,
   data = birth_data_att
 )
-
-# checking things out
 summary(birth_model_att)
+
+# Bayesian logistic regression
+bayes_birth_model_att <- brm(
+  Born ~ Length,
+  data = birth_data_att,
+  family = bernoulli(link = "logit"),
+  prior = c(
+    prior(normal(0, 5), class = "Intercept"),
+    prior(normal(0, 2), class = "b")
+  ),
+  chains = 4,
+  iter = 4000,
+  warmup = 1000,
+  seed = 123
+)
+summary(bayes_birth_model_att)
 
 # now estimate length at birth!
 length_at_birth_att <- -coef(birth_model_att)[1] / coef(birth_model_att)[2]
