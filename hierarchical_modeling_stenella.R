@@ -202,3 +202,41 @@ birth_model_hier2 <- brm(
 
 print(hello)
 
+# statistically no difference between JAGS and STAN,
+# JAGS is more user friendly
+# analysis paralysis is BAD
+
+
+# estimates for each species using the hyper-distributions
+# change z score, same data from LR is fine (look into brms struggles)
+# slope should not be the same
+
+# possible differences in intercept (assuming slope is the same), NOT using z
+# score
+# looking for the estimates
+# cmdSTAN something? stop using brms, because that write the STAN code
+# then package data (decode STAN code in brms)
+# perhaps a way to get the estimates in brms? stick with brms for now
+# brms does everything for you
+
+# then compare to logistic regression analyses for each species
+# length at maturity
+# age @ maturity
+# length @ birth
+
+
+# what i have:
+# individual logistic regression for 3 spp
+
+# what i need:
+# hierarchical estimates for 3 spp
+
+# start thinking about what else needs to go into poster (maturity, neonates)
+# post stat analysis, bring back to biology of the species
+
+
+
+
+
+
+
