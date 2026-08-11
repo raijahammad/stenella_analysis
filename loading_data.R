@@ -1,8 +1,8 @@
 # 1. load the necessary packages
 library(tidyverse)
-library(sf)
-library(rnaturalearth)
-library(rnaturalearthdata)
+# library(sf)
+# library(rnaturalearth)
+# library(rnaturalearthdata)
 
 # 2. read the og tables (only doing this bc of the new project)
 animal <- read.csv("data/tbl_Animal_2026-05-11.csv")
@@ -54,42 +54,42 @@ longirostris <- Stenella %>%
 coeruleoalba <- Stenella %>%
   filter(Species == "coeruleoalba")
 
-
-# THE FOLLOWING IS TO FILTER COASTAL ANIMALS
-
-coast <- ne_coastline(
-  scale = "medium",
-  returnclass = "sf"
-)
-
-# Function to add distance to coast and keep offshore animals
-make_offshore <- function(species_data) {
-  
-  species_sf <- species_data %>%
-    filter(
-      !is.na(Latitude),
-      !is.na(Longitude)
-    ) %>%
-    st_as_sf(
-      coords = c("Longitude", "Latitude"),
-      crs = 4326
-    )
-  
-  dist_to_coast <- st_distance(species_sf, coast)
-  
-  min_dist <- apply(dist_to_coast, 1, min)
-  
-  species_sf$dist_to_coast_km <- as.numeric(min_dist) / 1000
-  
-  species_offshore <- species_sf %>%
-    filter(dist_to_coast_km >= 25)
-  
-  return(species_offshore)
-}
-
-# Apply to each species
-attenuata_offshore <- make_offshore(attenuata)
-
-longirostris_offshore <- make_offshore(longirostris)
-
-coeruleoalba_offshore <- make_offshore(coeruleoalba)
+## Commented out the following section: 
+# # THE FOLLOWING IS TO FILTER COASTAL ANIMALS
+# 
+# coast <- ne_coastline(
+#   scale = "medium",
+#   returnclass = "sf"
+# )
+# 
+# # Function to add distance to coast and keep offshore animals
+# make_offshore <- function(species_data) {
+#   
+#   species_sf <- species_data %>%
+#     filter(
+#       !is.na(Latitude),
+#       !is.na(Longitude)
+#     ) %>%
+#     st_as_sf(
+#       coords = c("Longitude", "Latitude"),
+#       crs = 4326
+#     )
+#   
+#   dist_to_coast <- st_distance(species_sf, coast)
+#   
+#   min_dist <- apply(dist_to_coast, 1, min)
+#   
+#   species_sf$dist_to_coast_km <- as.numeric(min_dist) / 1000
+#   
+#   species_offshore <- species_sf %>%
+#     filter(dist_to_coast_km >= 25)
+#   
+#   return(species_offshore)
+# }
+# 
+# # Apply to each species
+# attenuata_offshore <- make_offshore(attenuata)
+# 
+# longirostris_offshore <- make_offshore(longirostris)
+# 
+# coeruleoalba_offshore <- make_offshore(coeruleoalba)

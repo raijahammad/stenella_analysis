@@ -20,6 +20,7 @@ Things to note:
 This analysis uses tidyverse for manipulating the data, coda for posterior samples, and rjags/jagsUI to run Bayesian models in JAGS.
 
 ```{r}
+#| echo: false
 library(tidyverse)
 library(coda)
 library(rjags)
@@ -34,7 +35,7 @@ source("loading_data.R")
 
 Observations with both age and maturity status were kept; rows containing missing values were removed.
 
-#### *Stenella Attenuata*
+#### *Stenella attenuata*
 
 ```{r}
 AM.data.ATT <- attenuata %>%
@@ -45,7 +46,7 @@ mean.age.ATT <- mean(AM.data.ATT$Age)
 sd.age.ATT <- sd(AM.data.ATT$Age)
 ```
 
-#### *Stenella Coerueleoalba*
+#### *Stenella coerueleoalba*
 
 ```{r}
 AM.data.COE <- coeruleoalba %>%
@@ -56,7 +57,7 @@ mean.age.COE <- mean(AM.data.COE$Age)
 sd.age.COE <- sd(AM.data.COE$Age)
 ```
 
-#### *Stenella Longirostris*
+#### *Stenella longirostris*
 
 ```{r}
 AM.data.LON <- longirostris %>%
@@ -81,7 +82,7 @@ $$\text{logit}(p_i) = \alpha + \beta X_i$$
 
 where \\(X_i\\) is age, \\(\\alpha\\) is the intercept, and \\(\\beta\\) describes the relationship between age and probability of maturity.
 
-#### *Stenella Attenuata*
+#### *Stenella attenuata*
 
 ```{r}
 jags.data.AM.ATT <- list(
@@ -115,7 +116,7 @@ jags.data.AM.LON <- list(
 
 Five independent MCMC chains were run, each used 50000 iterations with the first 25000 discarded as burn-in and every 100th posterior sample kept.
 
-#### *Stenella Attenuata*
+#### *Stenella attenuata*
 
 ```{r}
 MCMC.AM.ATT <- list(
@@ -156,9 +157,10 @@ jags.params.AM.LON <- c("alpha", "beta")
 
 ### Model
 
-#### *Stenella Attenuata*
+#### *Stenella attenuata*
 
 ```{r}
+if (!file.exists("RData/NH.AM.ATT.rds")){
 NH.AM.ATT <- jagsUI::jags(
   data = jags.data.AM.ATT,
   inits = NULL,
@@ -175,6 +177,10 @@ NH.AM.ATT <- jagsUI::jags(
 if (save.output)
   saveRDS(NH.AM.ATT,
           file = "RData/NH.AM.ATT.rds")
+  
+} else {
+  NH.AM.ATT <- readRDS("RData/NH.AM.ATT.rds")
+}
 ```
 
 #### *Stenella Coerueleoalba*
@@ -223,7 +229,7 @@ if (save.output)
 
 ### Extracting Posterior Samples
 
-#### *Stenella Attenuata*
+#### *Stenella attenuata*
 
 ```{r}
 all.samples.ATT <- as.matrix(NH.AM.ATT$samples)
@@ -254,7 +260,7 @@ beta.samples.LON <- all.samples.LON[, "beta"]
 
 The age at which an animal has a 50% probability of being mature.
 
-#### *Stenella Attenuata*
+#### *Stenella attenuata*
 
 ```{r}
 p.50.AM.ATT <- (-alpha.samples.ATT / beta.samples.ATT)
@@ -274,16 +280,19 @@ p.50.AM.LON <- (-alpha.samples.LON / beta.samples.LON)
 
 ### Summarizing Posterior Estimates
 
-#### *Stenella Attenuata*
+#### *Stenella attenuata*
 
 ```{r}
 summary(p.50.AM.ATT)
 
-quantile( 
+results.AM.ATT <- quantile( 
   p.50.AM.ATT, 
   probs = c(0.025, 0.5, 0.975)
 )
 ```
+S. attenuata's age at maturity was `r (results.AM.ATT[2])` (median) with 95% CI of `r signif(results.AM.ATT[1],3)` - `r signif(results.AM.ATT[3],3)`. 
+
+
 
 #### *Stenella Coerueleoalba*
 
